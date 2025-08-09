@@ -1,0 +1,172 @@
+```src/app/weather.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for better contrast */
+            font-family: 'Arial', sans-serif; /* Modern font */
+        }
+        h1 {
+            text-align: center;
+            color: #343a40; /* Darker color for the title */
+            margin-bottom: 20px;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em; /* Larger icon size */
+            color: white;
+        }
+        .ld { background-color: #ffc107; }
+        .nr { background-color: #dc3545; }
+        .e { background-color: #28a745; }
+        .n { background-color: #17a2b8; }
+        .d { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+    <h1>Weather Report for Districts in Tripura</h1>
+    <div class="container">
+        <div class="row" id="districts-container"></div>
+    </div>
+
+    <script>
+        const districtsData = [
+            {
+                "District": "DHALAI",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "11.50",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1593.80",
+                "Cumulative Category": "E",
+                "Monthly Actual": "77.00",
+                "Monthly Category": "LD"
+            },
+            {
+                "District": "NORTH TRIPURA",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "0.50",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1609.90",
+                "Cumulative Category": "N",
+                "Monthly Actual": "84.90",
+                "Monthly Category": "LD"
+            },
+            {
+                "District": "SOUTH TRIPURA",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "32.70",
+                "Weekly Category": "D",
+                "Cumulative Actual": "2066.40",
+                "Cumulative Category": "E",
+                "Monthly Actual": "106.50",
+                "Monthly Category": "D"
+            },
+            {
+                "District": "WEST TRIPURA",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "11.70",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1340.90",
+                "Cumulative Category": "N",
+                "Monthly Actual": "75.10",
+                "Monthly Category": "D"
+            },
+            {
+                "District": "GOMATI",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "10.50",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1109.20",
+                "Cumulative Category": "N",
+                "Monthly Actual": "14.10",
+                "Monthly Category": "LD"
+            },
+            {
+                "District": "KHOWAI",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "4.20",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1567.20",
+                "Cumulative Category": "E",
+                "Monthly Actual": "71.40",
+                "Monthly Category": "LD"
+            },
+            {
+                "District": "SIPAHIJALA",
+                "Daily Actual": "0.20",
+                "Daily Category": "LD",
+                "Weekly Actual": "49.40",
+                "Weekly Category": "N",
+                "Cumulative Actual": "870.30",
+                "Cumulative Category": "D",
+                "Monthly Actual": "116.50",
+                "Monthly Category": "D"
+            },
+            {
+                "District": "UNAKOTI",
+                "Daily Actual": "0.00",
+                "Daily Category": "NR",
+                "Weekly Actual": "0.20",
+                "Weekly Category": "LD",
+                "Cumulative Actual": "1515.00",
+                "Cumulative Category": "N",
+                "Monthly Actual": "54.90",
+                "Monthly Category": "LD"
+            }
+        ];
+
+        const categories = {
+            "LD": { icon: "🌧️", name: "Large Deficit" },
+            "NR": { icon: "☔", name: "No Rain" },
+            "E": { icon: "🌞", name: "Excess" },
+            "N": { icon: "🌤️", name: "Normal" },
+            "D": { icon: "🌧️", name: "Deficit" }
+        };
+
+        function createDistrictCard(data) {
+            const container = document.getElementById('districts-container');
+            
+            const col = document.createElement('div');
+            col.classList.add('col-md-6', 'col-lg-4', 'mb-4'); // Responsive columns
+
+            const card = document.createElement('div');
+            card.classList.add('card', 'h-100'); // Bootstrap card
+
+            const category = categories[data["Cumulative Category"].trim()];
+
+            card.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">${data.District}</h5>
+                    <div class="icon ${category.icon}">${category.icon}</div>
+                    <p><strong>Daily Actual:</strong> ${data["Daily Actual"]} mm</p>
+                    <p><strong>Weekly Actual:</strong> ${data["Weekly Actual"]} mm</p>
+                    <p><strong>Cumulative Actual:</strong> ${data["Cumulative Actual"]} mm</p>
+                    <p><strong>Monthly Actual:</strong> ${data["Monthly Actual"]} mm</p>
+                    <p><strong>Cumulative Category:</strong> ${category.name}</p>
+                </div>
+            `;
+            
+            col.appendChild(card);
+            container.appendChild(col);
+        }
+
+        districtsData.forEach(district => createDistrictCard(district));
+    </script>
+</body>
+</html>
