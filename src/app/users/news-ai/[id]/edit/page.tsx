@@ -414,7 +414,7 @@ export default function EditNews() {
             <div className="space-y-2">
               <Label htmlFor="post_content">Content</Label>
               <Editor
-                apiKey='iuydh6tdhtzd5buaia35qxb7gxofaulliy9l2s4b2dybzp65'
+                apiKey='ilhzf83qp53v0xyyxw6zm2279dhrlc249oam89xycth5i3nv'
                 value={news.post_content}
                 onEditorChange={handleEditorChange}
                 init={{

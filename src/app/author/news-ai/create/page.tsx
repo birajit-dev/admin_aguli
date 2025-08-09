@@ -374,7 +374,7 @@ export default function AddNews() {
             <div className="space-y-2">
               <Label>Content</Label>
               <Editor
-                apiKey='iuydh6tdhtzd5buaia35qxb7gxofaulliy9l2s4b2dybzp65'
+                apiKey='ilhzf83qp53v0xyyxw6zm2279dhrlc249oam89xycth5i3nv'
                 value={formData.content}
                 onEditorChange={(content: string) => setFormData(prev => ({ ...prev, content }))}
                 init={{
