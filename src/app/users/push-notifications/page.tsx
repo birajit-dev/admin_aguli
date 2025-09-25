@@ -41,7 +41,7 @@ export default function PushNotifications() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/push-notifications/send`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/push/notification`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
