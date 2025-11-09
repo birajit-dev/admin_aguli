@@ -179,12 +179,8 @@ export default function NewsAI() {
                         day: 'numeric'
                       })}
                     </span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      item.post_status === 1
-                        ? 'bg-gradient-to-r from-green-100 to-green-200 text-green-800' 
-                        : 'bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800'
-                    }`}>
-                      {item.post_status === 1 ? 'Published' : 'Draft'}
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-100 to-green-200 text-green-800">
+                      Published
                     </span>
                   </div>
                 </div>

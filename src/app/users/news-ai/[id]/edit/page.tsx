@@ -364,7 +364,7 @@ export default function EditNews() {
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
-                    <SelectItem key={category._id} value={category.cat_code}>
+                    <SelectItem key={category._id} value={category.cat_slug}>
                       {category.cat_name}
                     </SelectItem>
                   ))}
