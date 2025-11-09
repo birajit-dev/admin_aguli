@@ -238,6 +238,14 @@ export default function AddNews() {
         throw new Error('Please fill in all required fields');
       }
 
+      if (!formData.author) {
+        throw new Error('Please select an author');
+      }
+
+      if (!formData.category) {
+        throw new Error('Please select a category');
+      }
+
       const formDataToSend = new FormData();
       formDataToSend.append('post_name', formData.name);
       formDataToSend.append('post_description', formData.description);
@@ -360,8 +368,12 @@ export default function AddNews() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label>Author</Label>
-                  <Select onValueChange={(value) => setFormData(prev => ({ ...prev, author: value }))}>
+                  <Label>Author <span className="text-red-500">*</span></Label>
+                  <Select 
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, author: value }))}
+                    value={formData.author}
+                    required
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select author" />
                     </SelectTrigger>
@@ -377,11 +389,15 @@ export default function AddNews() {
               </div>
 
               <div className="space-y-2">
-                <Label>Categories</Label>
-                <Select onValueChange={(value) => {
-                  const selectedCategory = categories.find(c => c.cat_slug === value);
-                  setFormData(prev => ({ ...prev, category: selectedCategory || null }));
-                }}>
+                <Label>Categories <span className="text-red-500">*</span></Label>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedCategory = categories.find(c => c.cat_slug === value);
+                    setFormData(prev => ({ ...prev, category: selectedCategory || null }));
+                  }}
+                  value={formData.category?.cat_slug}
+                  required
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select categories" />
                   </SelectTrigger>

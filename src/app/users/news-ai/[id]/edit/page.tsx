@@ -56,26 +56,16 @@ interface TagInputProps {
 
 
 interface CategoryOption {
-  value: string;
-  label: string;
+  _id: string;
+  cat_name: string;
+  cat_code: string;
+  cat_thumb: string;
+  cat_slug: string;
+  cat_status: string;
+  cat_order: number;
+  update_date: string;
+  cat_seq: number;
 }
-
-const categoryOptions: CategoryOption[] = [
-  { value: 'tripura', label: 'Tripura' },
-  { value: 'national', label: 'National' },
-  { value: 'career', label: 'Jobs' },
-  { value: 'politics', label: 'Politics' },
-  { value: 'culture', label: 'Culture' },
-  { value: 'education', label: 'Education' },
-  { value: 'northeast', label: 'Northeast' },
-  { value: 'entertainment', label: 'Entertainment' },
-  { value: 'sports', label: 'Sports' },
-  { value: 'business', label: 'Business' },
-  { value: 'international', label: 'International' },
-  { value: 'article', label: 'Article' },
-  { value: 'biography', label: 'Biography' },
-  { value: 'festival', label: 'Festival' }
-];
 
 const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
   const [input, setInput] = useState('');
@@ -180,6 +170,7 @@ export default function EditNews() {
   const [error, setError] = useState<string | null>(null);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [authors, setAuthors] = useState<Author[]>([]);
+  const [categories, setCategories] = useState<CategoryOption[]>([]);
 
   useEffect(() => {
     const fetchAuthors = async () => {
@@ -202,12 +193,25 @@ export default function EditNews() {
       } catch (error) {
         console.error('Error fetching authors:', error);
         setError('Failed to fetch authors. Please try again later.');
-      } finally {
-        setLoading(false);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/aguli_tv/category/list`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        const data = await response.json();
+        setCategories(data.categories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setError('Failed to fetch categories. Please try again later.');
       }
     };
 
     fetchAuthors();
+    fetchCategories();
   }, []);
 
   useEffect(() => {
@@ -359,9 +363,9 @@ export default function EditNews() {
                   <SelectValue placeholder={news.post_category || "Select category"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {categoryOptions.map((category) => (
-                    <SelectItem key={category.value} value={category.value}>
-                      {category.label}
+                  {categories.map((category) => (
+                    <SelectItem key={category._id} value={category.cat_code}>
+                      {category.cat_name}
                     </SelectItem>
                   ))}
                 </SelectContent>
